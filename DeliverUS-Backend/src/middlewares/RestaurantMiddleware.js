@@ -25,4 +25,20 @@ const restaurantHasNoOrders = async (req, res, next) => {
   }
 }
 
-export { checkRestaurantOwnership, restaurantHasNoOrders }
+const checkRestaurantPromoted = async (req, res, next) => {
+  try {
+    if (req.body.promoted) {
+      const restaurantPromoted = await Restaurant.findOne({
+        where:{promoted: true, userId: req.user.id}
+      })
+      if (restaurantPromoted === null) {
+        return next()
+      }
+    }
+    return res.status(422).send('Promoted restaurant exists.')
+  } catch (err) {
+    return res.status(500).send(err.message)
+  }
+}
+
+export { checkRestaurantOwnership, restaurantHasNoOrders, checkRestaurantPromoted }
