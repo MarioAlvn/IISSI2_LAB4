@@ -7,7 +7,7 @@ const checkRestaurantPromoted = async (promoted, { req }) => {
   try {
     if (promoted) {
       const restaurantPromoted = await Restaurant.findOne({
-        where: { promoted: true, userId: req.user.id }
+        where: { promoted: true}
       })
       if (restaurantPromoted) {
         return Promise.reject(new Error('There is already a promoted restaurant'))

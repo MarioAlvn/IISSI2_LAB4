@@ -46,11 +46,6 @@ module.exports = {
       heroImage: {
         type: Sequelize.STRING
       },
-      promoted: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
-      },
       status: {
         type: Sequelize.ENUM,
         values: [
@@ -81,6 +76,11 @@ module.exports = {
           },
           key: 'id'
         }
+      },
+      promoted: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       restaurantCategoryId: {
         allowNull: false,
