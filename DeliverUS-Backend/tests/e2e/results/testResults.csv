@@ -1,14 +1,14 @@
-Total Tests: 7, Passed Tests: 6, Failed Tests: 1, Average Duration: 32.43ms
+Total Tests: 7, Passed Tests: 7, Failed Tests: 0, Average Duration: 38.29ms
 
 Files Summary:
-promoted.test.js: Total: 7, Passed: 6, Failed: 1, Average Duration: 32.43ms
+promoted.test.js: Total: 7, Passed: 7, Failed: 0, Average Duration: 38.29ms
 
 Test Results:
 File,Test,Duration,Status
 promoted.test.js,Promote restaurant Should return 401 if not logged in,12,passed
-promoted.test.js,Promote restaurant Should return 403 when logged in as a customer,10,passed
-promoted.test.js,Promote restaurant Should return 403 when trying to promote a restaurant that is not yours,56,passed
-promoted.test.js,Promote restaurant Should return 200 when successful promotion of restaurant,14,failed
-promoted.test.js,Promote restaurant Should return 404 when trying to promote a restaurant already deleted,29,passed
-promoted.test.js,Promote restaurant Should return 200 and a promoted restaurant when trying to create a promoted restaurant and there is not any other promotion),53,passed
-promoted.test.js,Promote restaurant Should return 422 when trying to create a promoted restaurant but there is already another promotion,53,passed
+promoted.test.js,Promote restaurant Should return 403 when logged in as a customer,9,passed
+promoted.test.js,Promote restaurant Should return 403 when trying to promote a restaurant that is not yours,60,passed
+promoted.test.js,Promote restaurant Should return 200 when successful promotion of restaurant,57,passed
+promoted.test.js,Promote restaurant Should return 404 when trying to promote a restaurant already deleted,27,passed
+promoted.test.js,Promote restaurant Should return 200 and a promoted restaurant when trying to create a promoted restaurant and there is not any other promotion),48,passed
+promoted.test.js,Promote restaurant Should return 422 when trying to create a promoted restaurant but there is already another promotion,55,passed

@@ -96,7 +96,7 @@ const destroy = async function (req, res) {
   }
 }
 
-const promoted = async function (req, res) {
+const promote = async function (req, res) {
   try {
     const restaurantPromoted = await Restaurant.findByPk(req.params.restaurantId)
 
@@ -126,6 +126,6 @@ const RestaurantController = {
   show,
   update,
   destroy,
-  promoted
+  promote
 }
 export default RestaurantController

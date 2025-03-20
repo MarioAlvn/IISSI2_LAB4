@@ -31,7 +31,7 @@ const checkRestaurantPromoted = async (req, res, next) => {
       const restaurantPromoted = await Restaurant.findOne({
         where: { promoted: true, userId: req.user.id }
       })
-      if (restaurantPromoted) {
+      if (restaurantPromoted === null) {
         return next()
       }
     }
