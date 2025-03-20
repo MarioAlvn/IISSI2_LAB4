@@ -28,13 +28,13 @@ const loadFileRoutes = function (app) {
     .put(
       isLoggedIn,
       hasRole('owner'),
-      checkEntityExists(Restaurant, 'restaurantId'),
-      RestaurantMiddleware.checkRestaurantOwnership,
-      handleFilesUpload(['logo', 'heroImage'], process.env.RESTAURANTS_FOLDER),
-      RestaurantValidation.update,
-      handleValidation,
-      RestaurantMiddleware.checkRestaurantPromoted,
-      RestaurantController.update)
+       checkEntityExists(Restaurant, 'restaurantId'),
+       RestaurantMiddleware.checkRestaurantOwnership,
+       handleFilesUpload(['logo', 'heroImage'], process.env.RESTAURANTS_FOLDER),
+       RestaurantValidation.update,
+       handleValidation,
+       RestaurantMiddleware.checkRestaurantPromoted, // Middleware corregido
+       RestaurantController.update)
     .delete(
       isLoggedIn,
       hasRole('owner'),

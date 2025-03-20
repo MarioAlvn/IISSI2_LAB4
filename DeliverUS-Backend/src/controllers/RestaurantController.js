@@ -96,27 +96,33 @@ const destroy = async function (req, res) {
   }
 }
 
-const promote = async function (req, res) {
+const promoted = async function (req, res) {
   try {
-    const restaurantPromoted = await Restaurant.findByPk(req.params.restaurantId)
-
-    if(restaurantPromoted.promoted){
-      restaurantPromoted.promoted = false
-      await restaurantPromoted.save()
+    const restaurant = await Restaurant.findByPk(req.params.restaurantId)
+    if (!restaurant) {
+      return res.status(404).send('Restaurant not found')
+    }
+    if (restaurant.promoted) {
+      // Si ya está promocionado, se desactiva la promoción
+      restaurant.promoted = false
+      await restaurant.save()
     } else {
-      restaurantPromoted.promoted = true
+      // Si no está promocionado, se activa y se desactivan otros que estén activos
+      restaurant.promoted = true
       const restaurantAlreadyPromoted = await Restaurant.findOne({ where: { promoted: true } })
-      if(restaurantAlreadyPromoted){
+      if (restaurantAlreadyPromoted) {
         restaurantAlreadyPromoted.promoted = false
         await restaurantAlreadyPromoted.save()
       }
+      await restaurant.save()
     }
-    await restaurantPromoted.save()
-    res.json(restaurantPromoted)
-    } catch (err) {
-      res.status(500).send(err)
-    }
+    res.json(restaurant)
+  } catch (err) {
+    res.status(500).send(err)
+  }
 }
+
+
 
 const RestaurantController = {
   index,
@@ -125,6 +131,6 @@ const RestaurantController = {
   show,
   update,
   destroy,
-  promote
+  promoted
 }
 export default RestaurantController

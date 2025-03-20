@@ -3,6 +3,22 @@ import { checkFileIsImage, checkFileMaxSize } from './FileValidationHelper.js'
 import { Restaurant } from '#root/src/models/models.js'
 const maxFileSize = 2000000 // around 2Mb
 
+const checkRestaurantPromoted = async (promoted, { req }) => {
+  try {
+    if (promoted) {
+      const restaurantPromoted = await Restaurant.findOne({
+        where: { promoted: true, userId: req.user.id }
+      })
+      if (restaurantPromoted) {
+        return Promise.reject(new Error('There is already a promoted restaurant'))
+      }
+    }
+    return Promise.resolve()
+  } catch (err) {
+    return Promise.reject(new Error(err))
+  }
+}
+
 const create = [
   check('name').exists().isString().isLength({ min: 1, max: 255 }).trim(),
   check('description').optional({ nullable: true, checkFalsy: true }).isString().trim(),
@@ -53,21 +69,4 @@ const update = [
   }).withMessage('Maximum file size of ' + maxFileSize / 1000000 + 'MB')
 ]
 
-const checkRestaurantPromoted = async (promoted, { req }) => {
-  try {
-    if (promoted) {
-      const restaurantPromoted = await Restaurant.findOne({
-        where:{promoted: true}
-      })
-    if (restaurantPromoted) {
-      return Promise.reject(new Error('There is a restaurant already promoted'))
-    }
-  }
-   return Promise.resolve()
-  } catch (err) {
-    return Promise.reject(new Error(err))
-  }
-}
-
-
-export { create, update}
+export { create, update, checkRestaurantPromoted }
